@@ -1,4 +1,5 @@
 import { Reader } from 'protobufjs'
+var hexy = require('hexy');
 
 /**
  * Turn a protobuf into a data-object
@@ -27,6 +28,8 @@ export const getData = (buffer, depth = 0) => {
           out.push({[id]: innerMessage})
         } catch (e) {
           // search buffer for extended chars
+          console.log('tag:', tag, ' id:', id, ' wire:', wireType);
+          console.log(e);
           let hasExtended = false
           bytes.forEach(b => {
             if (b < 32) {
@@ -34,8 +37,10 @@ export const getData = (buffer, depth = 0) => {
             }
           })
           if (hasExtended) {
+            console.log('Extended\n', hexy.hexy(new Buffer(bytes)));
             out.push({[id]: bytes})
           } else {
+            console.log('UnExtended\n', hexy.hexy(new Buffer(bytes)));
             out.push({[id]: bytes.toString()})
           }
         }
