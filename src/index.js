@@ -37,10 +37,10 @@ export const getData = (buffer, depth = 0) => {
             }
           })
           if (hasExtended) {
-            console.log('Extended\n', hexy.hexy(new Buffer(bytes)));
+            console.log('Extended', hexy.hexy(new Buffer(bytes)));
             out.push({[id]: bytes})
           } else {
-            console.log('UnExtended\n', hexy.hexy(new Buffer(bytes)));
+            console.log('UnExtended', hexy.hexy(new Buffer(bytes)));
             out.push({[id]: bytes.toString()})
           }
         }
